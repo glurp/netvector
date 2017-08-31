@@ -12,6 +12,10 @@ This tool offer a basic solution:
 * this programme print on STDOUT some lines of text which are vector graphics order
 * client show the resulting graph one the (gtk) display.
 
+Here a exemple of clock display (code in ```srv_clock.rb```) client show :
+
+![clock](https://user-images.githubusercontent.com/27629/29925133-a7c12f2c-8e5f-11e7-8c92-7f6125610dbb.png)
+
 
 
 Usage
@@ -68,10 +72,6 @@ while :; do
   sleep 1
 done
 ```
-
-Here a clock display (code in ```srv_clock.rb```) client show :
-
-![clock](https://user-images.githubusercontent.com/27629/29925133-a7c12f2c-8e5f-11e7-8c92-7f6125610dbb.png)
 
 
 TODO
