@@ -1,18 +1,18 @@
 Presentation
 ============
 
-Sometime, a distant host has  little envirronenent
+Sometime, a distant host has  little environment
 * with TCP/IP
-* without any Xorg, graphics display, graphics librairies
+* without any Xorg, graphics display, graphics libraries
 
-For this cases, diplaying some graphics (text/vector/raster) from distant host is not easy.
+For this cases, displaying some graphics (text/vector/raster) from distant host is not easy.
 This tool offer a basic solution:
 * a client, connect to host (ssh or tcp)
 * if ssh, it run a distant programme (shellscript or others)
 * this programme print on STDOUT some lines of text which are vector graphics order
 * client show the resulting graph one the (gtk) display.
 
-Here a exemple of clock display (code in ```srv_clock.rb```) client show :
+Here a example of clock display (code in ```srv_clock.rb```) client show :
 
 ![clock](https://user-images.githubusercontent.com/27629/29925133-a7c12f2c-8e5f-11e7-8c92-7f6125610dbb.png)
 
@@ -57,8 +57,8 @@ sleep
 ```
 
 
-   
-Exemples of server programs
+
+Examples of server programs
 ========
 
 
