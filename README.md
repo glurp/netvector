@@ -53,3 +53,15 @@ Here a clock display (code in ```srv_clock.rb```) client show :
 
 ![clock](https://user-images.githubusercontent.com/27629/29925133-a7c12f2c-8e5f-11e7-8c92-7f6125610dbb.png)
 
+
+TODO
+====
+
+[ ] force size of client drawing area
+[ ] text with style : font, size, emphasis...
+[ ] 2 layers : one static, at startup, other dynamic
+[ ] raster image (?)
+
+License
+=======
+This project is licensed under the terms of the MIT license.
