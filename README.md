@@ -1,15 +1,16 @@
 Presentation
 ============
+
 Sometime, a distant host has  little envirronenent
 * with TCP/IP
 * without any Xorg, graphics display, graphics librairies
 
-For this cases, diplaying some graphics (text/vector/raster) on dstant host is not easy.
+For this cases, diplaying some graphics (text/vector/raster) from distant host is not easy.
 This tool offer a basic solution:
 * a client, connect to host (ssh or tcp)
 * if ssh, it run a distant programme (shellscript or others)
 * this programme print on STDOUT some lines of text which are vector graphics order
-* client show the graph one the (gtk) display.
+* client show the resulting graph one the (gtk) display.
 
 
 
@@ -27,6 +28,25 @@ Exemples :
 ```
 
 For graphics 'language', see header of client.rb.
+
+
+For TCP usage, server can be run with ```netcat``` :
+
+```shell
+ nc  -kl 8787 -c ./srv.sh
+```
+In Ruby, server TCP can use ```gserver``` gem, or minitcp :
+
+```ruby
+MServer.service(8787,"0.0.0.0",22) do |socket|
+  socket.on_timer(1000) do
+     socket.write "CLEAR;POS, 1/20 /// Free Disk=> #{`df -h | grep tmp | head -1`};END"
+  end
+  socket.wait_end
+end
+sleep
+```
+
 
    
 Exemples of server programs
@@ -57,10 +77,11 @@ Here a clock display (code in ```srv_clock.rb```) client show :
 TODO
 ====
 
-* [ ] force size of client drawing area
-* [ ] text with style : font, size, emphasis...
+* [ ] Text with style : font, size, emphasis...
+* [ ] Force size of client drawing area
 * [ ] 2 layers : one static, at startup, other dynamic
-* [ ] raster image (?)
+* [ ] Raster image (?)
+* [ ] scp integration : copy script to server before execution (?)
 
 License
 =======
