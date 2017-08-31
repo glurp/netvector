@@ -17,18 +17,23 @@ Here a exemple of clock display (code in ```srv_clock.rb```) client show :
 ![clock](https://user-images.githubusercontent.com/27629/29925133-a7c12f2c-8e5f-11e7-8c92-7f6125610dbb.png)
 
 
+Pros/Cons
++ very light , serveur-side and client-side
+- very limited, http/canvas are more powerful
+
 
 Usage
 ======
 Usage:
 ```ruby
-   >ruby client.rb ip-host      user pass|noport ssh|tcp|local command...
+   >ruby client.rb ip-host user  pass|noport  ssh|tcp|local   command...
 ```
 
 Exemples :
 ```sh
    ruby client.rb 192.168.0.1 root 1234 ssh ruby srv_clock.rb 22
-   ruby client.rb ab root 1234 ssh ruby -e "'$stdout.sync=true;loop {puts "CLEAR;POS,0,20///# {Time.now};END" ;sleep 3}'"
+   ruby client.rb ab.net root 1234 ssh ruby -e "'$stdout.sync=true;loop {puts "CLEAR;POS,0,20///# {Time.now};END" ;sleep 3}'"
+   ruby client.rb ab.net root 8787 tcp -
 ```
 
 For graphics 'language', see header of client.rb.
