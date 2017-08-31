@@ -57,10 +57,10 @@ Here a clock display (code in ```srv_clock.rb```) client show :
 TODO
 ====
 
-[ ] force size of client drawing area
-[ ] text with style : font, size, emphasis...
-[ ] 2 layers : one static, at startup, other dynamic
-[ ] raster image (?)
+* [ ] force size of client drawing area
+* [ ] text with style : font, size, emphasis...
+* [ ] 2 layers : one static, at startup, other dynamic
+* [ ] raster image (?)
 
 License
 =======
