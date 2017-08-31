@@ -19,9 +19,9 @@ Usage:
    >ruby client.rb ip-host      user pass|noport ssh|tcp|local command...
 
 Exemples :
-```
-   >ruby client.rb 192.168.0.1 root 1234 ssh ruby srv_clock.rb 22
-   >ruby client.rb ab root 1234 ssh ruby -e "'$stdout.sync=true;loop {puts "CLEAR;POS,0,20///# {Time.now};END" ;sleep 3}'"
+```sh
+   ruby client.rb 192.168.0.1 root 1234 ssh ruby srv_clock.rb 22
+   ruby client.rb ab root 1234 ssh ruby -e "'$stdout.sync=true;loop {puts "CLEAR;POS,0,20///# {Time.now};END" ;sleep 3}'"
 ```
    
 Exemples of server programs
