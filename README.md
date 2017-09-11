@@ -96,12 +96,11 @@ DDDD, 2/1/3
 ######   echo "END"                                #  end of list , refresh
 ```
 
-```
 
 At 'END' commande, refresh do a redraw of backdround layout AND THEN foreground layout.
 So backgound can be a  heavy vectored (a svg export should be done...) , and forground show only varying vector.
 
-Exemple : output of srv_clock.rb :
+Example : output of srv_clock.rb :
 ---
 
 ```
@@ -135,7 +134,7 @@ Examples of server programs
 ========
 
 
-​```shell
+```shell
 #!/bin/bash
 echo  "CLEAR"
 echo "POS, 40 / 40 /// Hello ! "
@@ -166,3 +165,4 @@ TODO
 License
 =======
 This project is licensed under the terms of the MIT license.
+
