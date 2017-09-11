@@ -56,6 +56,63 @@ end
 sleep
 ```
 
+Vector graphic Langage
+=====
+line is splited with /\s+[,/]\s+/.
+usage is to use ',' for all, except for x/y point or w/h size, in these case, use '/'.
+
+so:
+DDDD/1,2,3
+is same as :
+DDDD,2, 1/3
+or
+DDDD, 2/1/3
+
+
+  echo "CLEARBG"                            # start backgound vector list
+  DIM w / h                                 # set dimensiion of client drawing area
+  ....                                      # use pos/rect/pline/poly/ova
+  echo "ENDBG"                              # end of background list (no refresh!)
+  
+  echo "CLEAR"                              # start vector list
+  echo "POS,x/y /// Date: $(date)"          # text at x/y position (size nd color can(t be specified!)
+  echo "RECT,#00F, #F00, 0, x/y, w/h"       # horizontal rectangle : (bgcolor fgcolor border-width)  x y w h
+  echo "PLINE, #888, #888, 10, 0/50, 200/50, 200/60, 0/60" # poly-line: bgcolor fgcolor border-width x y x y...
+  eco  "POLYG,#888, #888, 10, 0/50, 200/50, 200/60, 0/60" #  plygone  : bgcolor fgcolor border-width x y x y...
+  echo "OVAL, #888, #888, 10, 0/50, 200"    # circle : bgcolor fgcolor border-width x-center y-center r
+  echo "END"                                #  end of list , refresh
+
+At 'END' commande, refresh do a redraw of backdround layout AND THEN foreground layout.
+So backgound can be a  heavy vectored (a svg export should be done...) , and forground show only varying vector.
+
+Exemple : output of srv_clock.rb :
+---
+
+```
+CLEARBG
+RECT, #CCC, #CCC, 0 , 0 / 0 , 200  / 100
+PLINE, #888, #888, 10, 0 / 70, 200 / 70, 200 / 80, 0 / 80
+OVAL, #AAA, #FEE, 3, 150.0 / 50.0, 30.3
+OVAL, #AAA, #AAA, 1, 150.0 / 50.0, 3
+PLINE, #AAA, #AAA, 1, 152.82226850822664 / 23.14790882505662, 153.1358538980296 / 20.1643431389518
+.... graduations drawing...
+PLINE, #AAA, #AAA, 3, 150.0 / 26.0, 150.0 / 20.0
+ENDBG
+
+CLEAR
+POS, 10 / 15 /// Date: 16:43:48
+POS, 10 / 30 /// ls: 49
+PLINE, #AAB, #AAB, 2, 150.0 / 50.0, 159.3377195495643 / 61.7391223527862
+PLINE, #ABA, #ABA, 2, 150.0 / 50.0, 126.18924716845254 / 53.007997605543295
+PLINE, #BAA, #BAA, 2, 150.0 / 50.0, 121.46830451114539 / 40.72949016875159
+END
+CLEAR
+POS, 10 / 15 /// Date: 16:43:49
+POS, 10 / 30 /// ls: 49
+PLINE, #AAB, #AAB, 2, 150.0 / 50.0, 159.3377195495643 / 61.7391223527862
+PLINE, #ABA, #ABA, 2, 150.0 / 50.0, 126.18403349074828 / 52.96643544177182
+PLINE, #BAA, #BAA, 2, 150.0 / 50.0, 122.59363627072197 / 37.79790070772599
+```
 
 
 Examples of server programs
@@ -82,9 +139,9 @@ done
 TODO
 ====
 
+* [x] Force size of client drawing area
+* [x] 2 layers : one static, at startup, other dynamic
 * [ ] Text with style : font, size, emphasis...
-* [ ] Force size of client drawing area
-* [ ] 2 layers : one static, at startup, other dynamic
 * [ ] Raster image (?)
 * [ ] scp integration : copy script to server before execution (?)
 
