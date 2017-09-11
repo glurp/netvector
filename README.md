@@ -144,6 +144,8 @@ TODO
 * [ ] Text with style : font, size, emphasis...
 * [ ] Raster image (?)
 * [ ] scp integration : copy script to server before execution (?)
+* [ ] test unit
+* [ ] a gem (?)
 
 License
 =======
