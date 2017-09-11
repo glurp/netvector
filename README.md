@@ -28,8 +28,8 @@ Here a example of clock display (code in ```srv_clock.rb```) client show :
 
 
 Pros/Cons
-+ very light , serveur-side and client-side
-- very limited, http/canvas are more powerful
+* (+) very light , serveur-side and client-side
+* (-) very limited, http/canvas are more powerful
 
 
 Usage
