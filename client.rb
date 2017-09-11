@@ -28,6 +28,7 @@
 #  echo "POS,10/15 /// Date: $(date)"        # x/y position , texte
 #  echo "RECT,#CCC, #CCC, 0, 0/0, 200/100"   # bgcolor fgcolor border-width x y w h
 #  echo "PLINE, #888, #888, 10, 0/50, 200/50, 200/60, 0/60" # ; bgcolor fgcolor border-width x y x y...
+#  echo "POLYG, #888, #888, 10, 0/50, 200/50, 200/60, 0/60" # ; bgcolor fgcolor border-width x y x y...
 #  echo "OVAL, #888, #888, 10, 0/50, 200"    # ; bgcolor fgcolor border-width x-center y-center r
 #  echo "END"                                #  end of list , refresh
 #  echo "ENDBG"                              #  end of background list
@@ -105,6 +106,7 @@ class SSHClient
           @nolayout=1
           @lvect[@nolayout]= []
         when "DIM"   then (gui_invoke {@app.set_size(params[0].to_i,params[1].to_i) }) if @layout==0
+        when "FONT"   then @lvect[@nolayout] << [:font,{size: params[0].to_i, name: params[1], fg: params[2]}]
         when "POS"   then @lvect[@nolayout] << [:pos,{x: params[0].to_i, y: params[1].to_i,t: (txt || params[2])}]
         when "RECT"  then @lvect[@nolayout] << [:rect,{x: params[3].to_i,y: params[4].to_i,w: params[5].to_i,h: params[6].to_i,cfg:params[0],cbg: params[1],ep: params[2].to_i}]
         when "OVAL"  then @lvect[@nolayout] << [:oval,{cfg:params[0],cbg: params[1],ep: params[2].to_i,x: params[3].to_i,y: params[4].to_i,r: params[5].to_i}]
@@ -131,11 +133,17 @@ class SSHClient
   #################  Draw
   def redraw(w,cr)
     return unless @lvect.size>0 || @lvect[0].size+@lvect[1].size==0
+    fg=nil
     @app.ctx_font(cr,"Courier new bold 12",12)
     @lvect.each do |layout| layout.each do |(cmd,h)|
       begin
         case(cmd)
-          when :pos then w.draw_text(h[:x],h[:y],h[:t],1,"#044")
+          when :font
+              size= h[:size]
+              name= h[:name]
+              fg=h[:fg]
+              @app.ctx_font(cr,name,size)
+          when :pos then w.draw_text(h[:x],h[:y],h[:t],1,fg || "#044")
           when :rect then w.draw_rectangle(h[:x],h[:y],h[:w],h[:h],h[:ep],h[:cbg],h[:cfg])
           when :oval then w.draw_circle(h[:x],h[:y],h[:r],h[:cbg],h[:cfg],h[:ep])
           when :plin then w.draw_line(h[:lxy],h[:cfg],h[:ep])
@@ -170,7 +178,7 @@ Ruiby.app width:200, height:250, title: "S" do
   @cli= SSHClient.new(self)
   @chrome=true
   stack do
-    flowi {pclickable(proc {@chrome=! @chrome; self.chrome(@chrome)}) { @lab=label(" <status>  ")  }}
+    flowi { @lab=label(" <status>  ")  }
     @cv=canvas(100,20) {
       on_canvas_draw { |w,ctx| @cli.redraw(w,ctx) }
       on_canvas_button_release {|w,e,o| @cli.mouse_release(w,e.x,e.y,e) }

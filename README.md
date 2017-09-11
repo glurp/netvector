@@ -72,12 +72,9 @@ Vector graphic Langage
 line is splited with /\s+[,/]\s+/.
 usage is to use ',' for all, except for x/y point or w/h size, in these case, use '/'.
 
-so:
-DDDD/1,2,3
-is same as :
-DDDD,2, 1/3
-or
-DDDD, 2/1/3
+so: ```DDDD/1,2,3```  is same as : ```DDDD,2, 1/3```  or  ```DDDD, 2/1/3```
+
+
 
 
 ```
@@ -87,6 +84,7 @@ DDDD, 2/1/3
   echo "ENDBG"                              # end of background list (no refresh!)
 
   echo "CLEAR"                              # start vector list
+  echo "FONT,size,name,color"               # attributes for text
   echo "POS,x/y /// Date: $(date)"          # text at x/y position (size nd color can(t be specified!)
   echo "RECT,#00F, #F00, 0, x/y, w/h"       # horizontal rectangle : (bgcolor fgcolor border-width)  x y w h
   echo "PLINE, #888, #888, 10, 0/50, 200/50, 200/60, 0/60" # poly-line: bgcolor fgcolor border-width x y x y...
@@ -139,6 +137,7 @@ Examples of server programs
 echo  "CLEAR"
 echo "POS, 40 / 40 /// Hello ! "
 echo "PLINE, #888, #888, 10, 0 / 50, 200 / 50"
+echo "END"
 sleep 3
 while :; do 
   echo "CLEAR"
@@ -146,6 +145,7 @@ while :; do
   echo "POS, 10 / 15 /// Date: $(date | awk ' {printf $4}')"
   echo "POS, 10 / 30 /// ls: $(ls -1 | wc -l)"
   echo "PLINE, #888, #888, 10, 0/50, 200/50, 200/60, 0/60"
+  echo "END"
   sleep 1
 done
 ```
@@ -156,7 +156,7 @@ TODO
 
 * [x] Force size of client drawing area
 * [x] 2 layers : one static, at startup, other dynamic
-* [ ] Text with style : font, size, emphasis...
+* [x] Text with style : font, size, color
 * [ ] Raster image (?)
 * [ ] scp integration : copy script to server before execution (?)
 * [ ] test unit
@@ -165,4 +165,6 @@ TODO
 License
 =======
 This project is licensed under the terms of the MIT license.
+
+```client.rb```  is only  a proof of concept. If the idea pleases everyone , the language could be extended and client part writing in compiled lang (Crystal ?  :)
 
