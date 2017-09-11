@@ -5,11 +5,21 @@ Sometime, a distant host has  little environment
 * with TCP/IP
 * without any Xorg, graphics display, graphics libraries
 
-For this cases, displaying some graphics (text/vector/raster) from distant host is not easy.
+For this cases, displaying some graphics (text/vector/raster) from distant host is not easy. Tipical case are :
+
+* embeded Linux with little memory : Omega2, Linkit Smart, Arduino Yun...
+* router on OpenWrt
+* Cloud Server without any remote display.
+
+
+
+
+
 This tool offer a basic solution:
+
 * a client, connect to host (ssh or tcp)
-* if ssh, it run a distant programme (shellscript or others)
-* this programme print on STDOUT some lines of text which are vector graphics order
+* if ssh, it run a distant program (shell script or others)
+* this program print on STDOUT some lines of text which are vector graphics order
 * client show the resulting graph one the (gtk) display.
 
 Here a example of clock display (code in ```srv_clock.rb```) client show :
@@ -36,7 +46,6 @@ Exemples :
    ruby client.rb ab.net root 8787 tcp -
 ```
 
-For graphics 'language', see header of client.rb.
 
 
 For TCP usage, server can be run with ```netcat``` :
@@ -44,6 +53,8 @@ For TCP usage, server can be run with ```netcat``` :
 ```shell
  nc  -kl 8787 -c ./srv.sh
 ```
+
+
 In Ruby, server TCP can use ```gserver``` gem, or minitcp :
 
 ```ruby
@@ -69,18 +80,23 @@ or
 DDDD, 2/1/3
 
 
+```
   echo "CLEARBG"                            # start backgound vector list
   DIM w / h                                 # set dimensiion of client drawing area
   ....                                      # use pos/rect/pline/poly/ova
   echo "ENDBG"                              # end of background list (no refresh!)
-  
+
   echo "CLEAR"                              # start vector list
   echo "POS,x/y /// Date: $(date)"          # text at x/y position (size nd color can(t be specified!)
   echo "RECT,#00F, #F00, 0, x/y, w/h"       # horizontal rectangle : (bgcolor fgcolor border-width)  x y w h
   echo "PLINE, #888, #888, 10, 0/50, 200/50, 200/60, 0/60" # poly-line: bgcolor fgcolor border-width x y x y...
   eco  "POLYG,#888, #888, 10, 0/50, 200/50, 200/60, 0/60" #  plygone  : bgcolor fgcolor border-width x y x y...
   echo "OVAL, #888, #888, 10, 0/50, 200"    # circle : bgcolor fgcolor border-width x-center y-center r
-  echo "END"                                #  end of list , refresh
+
+######   echo "END"                                #  end of list , refresh
+```
+
+```
 
 At 'END' commande, refresh do a redraw of backdround layout AND THEN foreground layout.
 So backgound can be a  heavy vectored (a svg export should be done...) , and forground show only varying vector.
@@ -119,7 +135,7 @@ Examples of server programs
 ========
 
 
-```shell
+​```shell
 #!/bin/bash
 echo  "CLEAR"
 echo "POS, 40 / 40 /// Hello ! "
