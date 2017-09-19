@@ -5,11 +5,13 @@ Sometime, a distant host has  little environment
 * with TCP/IP
 * without any Xorg, graphics display, graphics libraries
 
-For this cases, displaying some graphics (text/vector/raster) from distant host is not easy. Tipical case are :
+
+
+For this cases, displaying some graphics (text/vector/raster) from distant host is not easy. Typical case are :
 
 * embeded Linux with little memory : Omega2, Linkit Smart, Arduino Yun...
 * router on OpenWrt
-* Cloud Server without any remote display.
+* Cloud Server without any remote display amin.
 
 
 
@@ -39,7 +41,7 @@ Usage:
    >ruby client.rb ip-host user  pass|noport  ssh|tcp|local   command...
 ```
 
-Exemples :
+Examples :
 ```sh
    ruby client.rb 192.168.0.1 root 1234 ssh ruby srv_clock.rb 22
    ruby client.rb ab.net root 1234 ssh ruby -e "'$stdout.sync=true;loop {puts "CLEAR;POS,0,20///# {Time.now};END" ;sleep 3}'"
@@ -48,11 +50,14 @@ Exemples :
 
 
 
-For TCP usage, server can be run with ```netcat``` :
+For TCP usage, shell server can be run with ```netcat``` :
 
 ```shell
  nc  -kl 8787 -c ./srv.sh
 ```
+
+(-l for listen TCP, port 8787, -k server keep online after client disconnection, -c command to run on connection, stdin/stdout piped on socket)
+
 
 
 In Ruby, server TCP can use ```gserver``` gem, or minitcp :
@@ -67,9 +72,14 @@ end
 sleep
 ```
 
+```local```  usage is for test : run a local command, piped his output.
+
+
+
 Vector graphic Langage
 =====
-line is splited with /\s*[,/]\s*/.
+
+line is splited with ```/\s*[,/]\s*/```.
 usage is to use ',' for all, except for x/y point or w/h size, in these case, use '/'.
 
 so: ```DDDD/1,2,3```  is same as : ```DDDD,2, 1/3```  or  ```DDDD, 2/1/3```
@@ -166,5 +176,5 @@ License
 =======
 This project is licensed under the terms of the MIT license.
 
-```client.rb```  is only  a proof of concept. If the idea pleases everyone , the language could be extended and client part writing in compiled lang (Crystal ?  :)
+```client.rb```  is only  a proof of concept. If the idea pleases someone, the language could be extended and client part writing in compiled lang (Crystal ?  :)
 
