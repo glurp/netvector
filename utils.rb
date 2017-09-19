@@ -15,7 +15,7 @@ def local_exec(cmd,client)
 end
 
 def ssh_pipe_out(host,user,passwd,cmd,client) 
-  puts "SSH start for #{user}:#{"*****"}@#{host}:<<#{cmd}>>"
+  puts "SSH start for ssh://#{user}:#{"*****"}@#{host}:#{cmd}"
   with_output=false
   is_connected=false
   puts "  Start ssh..." if with_output

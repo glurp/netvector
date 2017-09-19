@@ -1,5 +1,5 @@
 ####################################################################################
-#  srv_clock.rb : demo off client netvector
+#  srv_clock.rb : demo for  client netvector
 ####################################################################################
 
 $lmtime= File.mtime(__FILE__) ; Thread.new {loop { exit(0) if File.mtime(__FILE__)!=$lmtime; sleep 3}}

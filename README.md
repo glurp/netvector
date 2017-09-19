@@ -69,7 +69,7 @@ sleep
 
 Vector graphic Langage
 =====
-line is splited with /\s+[,/]\s+/.
+line is splited with /\s*[,/]\s*/.
 usage is to use ',' for all, except for x/y point or w/h size, in these case, use '/'.
 
 so: ```DDDD/1,2,3```  is same as : ```DDDD,2, 1/3```  or  ```DDDD, 2/1/3```
@@ -79,7 +79,7 @@ so: ```DDDD/1,2,3```  is same as : ```DDDD,2, 1/3```  or  ```DDDD, 2/1/3```
 
 ```
   echo "CLEARBG"                            # start backgound vector list
-  DIM w / h                                 # set dimensiion of client drawing area
+  echo "DIM, 100 / 200"                     # set dimensiion of client drawing area
   ....                                      # use pos/rect/pline/poly/ova
   echo "ENDBG"                              # end of background list (no refresh!)
 
