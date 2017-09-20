@@ -36,8 +36,8 @@
 ##########################################################################################
 
 if  ARGV.size<5
- puts "Usage:  \n   >ruby #{$0} ip-host      user pass|noport ssh|tcp|local command..."
- puts "Exemple:\n   >ruby #{$0} 192.168.0.1 root 1234 ssh ruby srv_clock.rb 22"
+ puts "Usage:  \n   >ruby #{$0} [-d] ip-host      user pass|noport ssh|tcp|local command..."
+ puts "Exemple:\n   >ruby #{$0}      192.168.0.1 root 1234 ssh ruby srv_clock.rb 22"
  puts %{   >ruby client.rb ab root 1234 ssh ruby -e "'$stdout.sync=true;loop {puts \"CLEAR;POS,0,20///# {Time.now};END\" ;sleep 3}'"}
 
  exit(1)
@@ -95,9 +95,11 @@ class SSHClient
   end
   def net_receive_data(data0)
     data0.split(/\n|;/).each do |data|  
+      data.strip!
       txt=nil
       data,txt=data.split(%r{\s*///\s*},2) if data[0,3]=="POS"
       cmd,*params=data.chomp.split(%r{\s*[,/]\s*})
+      puts data if $DEBUG
       case(cmd)
         when "CLEARBG" 
           @nolayout=0
@@ -121,6 +123,7 @@ class SSHClient
             @app.update
       end
     end  
+    p @lvect if $DEBUG
   rescue
     @nolayout=1 unless @nolayout
     @lvect[@nolayout]=[] if @lvect[@nolayout].size>30 
